@@ -8,9 +8,9 @@ import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import date
 
-
-
+date_current = date.today()
 api_urls = {'key1':'https://covidtracking.com/api/v1/us/daily.json','key2':'https://covidtracking.com/api/v1/states/current.json'}
 df1= pd.read_json("D:\Python Outputs\data.v.1.json")
 df2= pd.read_json("D:\Python Outputs\data.v.2.json")
@@ -34,10 +34,10 @@ def apiData(api_urls,df1,df2):
                         with open("D:\Python Outputs\data.v.2.json" , "w") as outfile2:
                             outfile2.write(json_object2)
                         df2.to_csv("D:\Python Outputs\API_state_current.csv")
-                        print("\n")
+                        # print("\n")
             print("Function Excecuted Successfully, JSON files and CSV file for US daily and State Current have been generated\n")
     except:
-      print("Error in apiData Function")
+             print("Error in apiData Function")
 
 def dataExploration(df1,df2):
         print('The information about the daily US cases dataset is as follows:')
@@ -45,23 +45,23 @@ def dataExploration(df1,df2):
         print('The information about the daily state cases dataset is as follows:')
         print(df2.info())
 
-def stateData(df2):
+def stateData(df2,date_current):
     try:
            print("State Current Testing Data- \n")
            total_positive_state = df2['positive'].sum()
-           print('Total positive cases in all the states currently are :{} '.format(total_positive_state))
+           print('Total positive cases in all the states on {} are :{} ' .format(date_current,total_positive_state))
            total_negative_state = df2['negative'].sum()
-           print('Total negative cases in all the states currently are :{} '.format(total_negative_state))
+           print('Total negative cases in all the states on {} are :{} '.format(date_current, total_negative_state))
            total_pending_state = df2['pending'].sum()
-           print('Total pending cases in all the states currently are :{} \n'.format(total_pending_state))
+           print('Total pending cases in all the states on {} are :{} \n'.format(date_current,total_pending_state))
 
-           print("State Current Outcome Data- \n")
+           print("State Current Outcome Data- ")
            total_recovered_state = df2['recovered'].sum()
-           print('Total recovered cases in all the states currently are :{} '.format(total_recovered_state))
+           print('Total recovered cases in all the states on {} are :{} '.format(date_current,total_recovered_state))
            total_death_state = df2['death'].sum()
-           print('Total death cases in all the states currently are :{} '.format(total_death_state))
+           print('Total death cases in all the states on {} are :{} \n'.format(date_current,total_death_state))
 
-           print("State Total Test Results Data- \n")
+           print("State Total Test Results Data- ")
            total_tests_state = total_positive_state+ total_negative_state
            print('Total tests done in all the states are : {} '.format(total_tests_state))
     except:
@@ -73,8 +73,10 @@ def stateViz(df2):
     plt.bar(x, y, label = 'Total Cases/ State', align='center')
     plt.xticks(x, rotation=90)
     plt.show()
+
+
 if __name__ =="__main__":
     apiData(api_urls,df1,df2)
     # dataExploration(df1,df2)
-    stateData(df2)
+    stateData(df2,date_current)
     stateViz(df2)
