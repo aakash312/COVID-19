@@ -16,6 +16,10 @@ df1= pd.read_json("D:\Python Outputs\data.v.1.json")
 df2= pd.read_json("D:\Python Outputs\data.v.2.json")
 
 def apiData(api_urls,df1,df2):
+    '''
+    This function will take the api_urls dictionary as a input and generate a json file with all the API data and later convert
+    the json file into csv format which can is more readable as compared to json file
+    '''
     try:
             for val1,val2 in api_urls.items():
                     if val1 == 'key1':
@@ -40,12 +44,21 @@ def apiData(api_urls,df1,df2):
              print("Error in apiData Function")
 
 def dataExploration(df1,df2):
+    '''
+    This function will take the df1 and df2 as input and provide some basic information about the data type of different columns
+    and also top 5 rows of both the dataframes
+    '''
         print('The information about the daily US cases dataset is as follows:')
         print(df1.info())
         print('The information about the daily state cases dataset is as follows:')
         print(df2.info())
 
 def stateData(df2,date_current):
+    '''
+    This function will take in the df2 i.e. the dataframe with the state daily data and also date_current variable which will
+    be use to print out the date in the output. The goal of this function is to do some aggregation of values and show the total positive, negative, recovered and
+    death cases
+    '''
     try:
            print("State Current Testing Data- \n")
            total_positive_state = df2['positive'].sum()
@@ -54,13 +67,13 @@ def stateData(df2,date_current):
            print('Total negative cases in all the states on {} are :{} '.format(date_current, total_negative_state))
            total_pending_state = df2['pending'].sum()
            print('Total pending cases in all the states on {} are :{} \n'.format(date_current,total_pending_state))
-
+            ##
            print("State Current Outcome Data- ")
            total_recovered_state = df2['recovered'].sum()
            print('Total recovered cases in all the states on {} are :{} '.format(date_current,total_recovered_state))
            total_death_state = df2['death'].sum()
            print('Total death cases in all the states on {} are :{} \n'.format(date_current,total_death_state))
-
+            ##
            print("State Total Test Results Data- ")
            total_tests_state = total_positive_state+ total_negative_state
            print('Total tests done in all the states are : {} '.format(total_tests_state))
