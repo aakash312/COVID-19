@@ -44,14 +44,16 @@ def apiData(api_urls,df1,df2):
              print("Error in apiData Function")
 
 def dataExploration(df1,df2):
-    '''
-    This function will take the df1 and df2 as input and provide some basic information about the data type of different columns
-    and also top 5 rows of both the dataframes
-    '''
+        '''
+        This function will take the df1 and df2 as input and provide some basic information about the data type of different columns
+        and also top 5 rows of both the dataframes
+        '''
         print('The information about the daily US cases dataset is as follows:')
         print(df1.info())
+        print(df1.head())
         print('The information about the daily state cases dataset is as follows:')
         print(df2.info())
+        print(df2.head())
 
 def stateData(df2,date_current):
     '''
@@ -80,16 +82,55 @@ def stateData(df2,date_current):
     except:
         print('Error in stateData Function')
 
-def stateViz(df2):
-    x = df2.loc[:,'state'].values
-    y = df2.loc[:,'total'].values
-    plt.bar(x, y, label = 'Total Cases/ State', align='center')
-    plt.xticks(x, rotation=90)
-    plt.show()
+def usDate(df1):
+    '''
+
+    '''
+    try:
+        pass
+    except:
+        pass
+
+def usViz(df1):
+    '''
+
+    '''
+    try:
+        pass
+    except:
+        pass
+
+
+
+def stateViz(df2,date_current):
+    '''
+    This function is used for visualization purposes
+    '''
+    try:
+            x1=df2.nlargest(5, ['total'])
+            x = x1.loc[:,'state'].values
+            y = x1.loc[:,'total'].values
+            plt.scatter(x, y)
+            # plt.xticks(x, rotation=90)
+            plt.show()
+            font = {'size': 65}
+            plt.rc('font', **font)
+            plt.rcParams["figure.figsize"]=60,40  # Remove if not on Jupyter
+            df2.plot(kind = 'bar', x = 'state', y = 'positive', color = 'blue')
+            plt.title("State wise positive cases on {}" .format(date_current))
+            plt.show()
+            df2.plot(kind = 'bar', x = 'state', y = 'negative', color = 'red')
+            plt.title("State wise negative cases on {}" .format(date_current))
+            plt.show()
+            df2.plot(kind = 'bar', x = 'state', y = 'death', color = 'black')
+            plt.title("State wise deaths cases on {}" .format(date_current))
+            plt.show()
+    except:
+        print('stateViz function failed to execute')
 
 
 if __name__ =="__main__":
     apiData(api_urls,df1,df2)
     # dataExploration(df1,df2)
     stateData(df2,date_current)
-    stateViz(df2)
+    stateViz(df2,date_current)
