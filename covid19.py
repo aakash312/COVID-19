@@ -107,30 +107,48 @@ def stateViz(df2,date_current):
     This function is used for visualization purposes
     '''
     try:
-            x1=df2.nlargest(5, ['total'])
-            x = x1.loc[:,'state'].values
-            y = x1.loc[:,'total'].values
-            plt.scatter(x, y)
-            # plt.xticks(x, rotation=90)
-            plt.show()
+            x1=df2.nlargest(10, ['positive'])
+            x = x1.loc[:,'positive'].values
+            y = x1.loc[:,'state'].values
+            plt.pie(x,labels=y,autopct='%1.1f%%')
+            # plt.legend(y, loc="right")
+            plt.title("Top 10 states that are most affected by COVID-19 are ")
+            plt.savefig('D:\Python Outputs\Top10most.pdf')
+            # plt.show()
+
+            x3=df2.nsmallest(5, ['positive'])
+            a = x3.loc[:,'positive'].values
+            b = x3.loc[:,'state'].values
+            plt.pie(a,labels=b,autopct='%1.1f%%')
+            # plt.legend(b, loc="right")
+            plt.title("Top 10 states that are least affected by COVID-19 are ")
+            plt.savefig('D:\Python Outputs\Top10least.pdf')
+            # plt.show()
+
             font = {'size': 65}
             plt.rc('font', **font)
-            plt.rcParams["figure.figsize"]=60,40  # Remove if not on Jupyter
+            plt.rcParams["figure.figsize"]=60,40
             df2.plot(kind = 'bar', x = 'state', y = 'positive', color = 'blue')
             plt.title("State wise positive cases on {}" .format(date_current))
-            plt.show()
+            plt.savefig('D:\Python Outputs\positive.pdf')
+            # plt.show()
+
             df2.plot(kind = 'bar', x = 'state', y = 'negative', color = 'red')
             plt.title("State wise negative cases on {}" .format(date_current))
-            plt.show()
+            plt.savefig('D:\Python Outputs\ negative.pdf')
+            # plt.show()
+
             df2.plot(kind = 'bar', x = 'state', y = 'death', color = 'black')
             plt.title("State wise deaths cases on {}" .format(date_current))
-            plt.show()
+            plt.savefig('D:\Python Outputs\deaths.pdf')
+            # plt.show()
+
     except:
         print('stateViz function failed to execute')
 
 
 if __name__ =="__main__":
-    apiData(api_urls,df1,df2)
-    # dataExploration(df1,df2)
-    stateData(df2,date_current)
+    # apiData(api_urls,df1,df2)
+    # # dataExploration(df1,df2)
+    # stateData(df2,date_current)
     stateViz(df2,date_current)
