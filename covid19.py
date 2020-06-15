@@ -82,14 +82,20 @@ def stateData(df2,date_current):
     except:
         print('Error in stateData Function')
 
-def usDate(df1):
+def usData(df1,date_current):
     '''
 
     '''
     try:
-        pass
+        total_death_us = df1['death'].max()
+        print('Total death cases in all the states on {} are :{} '.format(date_current,total_death_us))
+        total_positive_us = df1['positive'].max()
+        print('Total positive cases in all the states on {} are :{} '.format(date_current,total_positive_us))
+        total_negative_us = df1['negative'].max()
+        print('Total negative cases in all the states on {} are :{} '.format(date_current,total_negative_us))
+
     except:
-        pass
+        print('usData function failed to execute')
 
 def usViz(df1):
     '''
@@ -113,7 +119,7 @@ def stateViz(df2,date_current):
             plt.pie(x,labels=y,autopct='%1.1f%%')
             # plt.legend(y, loc="right")
             plt.title("Top 10 states that are most affected by COVID-19 are ")
-            plt.savefig('D:\Python Outputs\Top10most.pdf')
+            plt.savefig('D:\Python Outputs\Top10most {}.pdf'.format(date_current))
             # plt.show()
 
             x3=df2.nsmallest(5, ['positive'])
@@ -142,6 +148,7 @@ def stateViz(df2,date_current):
             plt.title("State wise deaths cases on {}" .format(date_current))
             plt.savefig('D:\Python Outputs\deaths.pdf')
             # plt.show()
+            print('The stateViz function executed successfully')
 
     except:
         print('stateViz function failed to execute')
@@ -149,6 +156,7 @@ def stateViz(df2,date_current):
 
 if __name__ =="__main__":
     # apiData(api_urls,df1,df2)
-    # # dataExploration(df1,df2)
-    # stateData(df2,date_current)
-    stateViz(df2,date_current)
+    # dataExploration(df1,df2)
+    stateData(df2,date_current)
+    # stateViz(df2,date_current)
+    usData(df1,date_current)
