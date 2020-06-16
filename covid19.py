@@ -12,8 +12,8 @@ from datetime import date
 
 date_current = date.today()
 api_urls = {'key1': 'https://covidtracking.com/api/v1/us/daily.json','key2': 'https://covidtracking.com/api/v1/states/current.json'}
-df1 = pd.read_json("D:\Python Outputs\data.v.1.json")
-df2 = pd.read_json("D:\Python Outputs\data.v.2.json")
+df1 = pd.read_json("D:\Python Outputs\API_US_Data.json")
+df2 = pd.read_json("D:\Python Outputs\API_State_Data.json")
 
 
 def apiData(api_urls,df1,df2,date_current):
@@ -28,19 +28,19 @@ def apiData(api_urls,df1,df2,date_current):
                 json_obj1 = urlopen(val2)
                 data1 = json.load(json_obj1)
                 json_object1 = json.dumps(data1, indent=4)
-                with open("D:\Python Outputs\data.v.1.json",'w') as outfile1:
+                with open("D:\Python Outputs\API_US_Data.json",'w') as outfile1:
                     outfile1.write(json_object1)
 
-                df1.to_csv("D:\Python Outputs\ {}_API_us_daily.csv".format(date_current))
+                df1.to_csv("D:\Python Outputs\ {}_API_US_Daily.csv".format(date_current))
             else:
                 print('The json file generated will have the data from this URL: {}\n'.format(val2))
                 json_obj2 = urlopen(val2)
                 data2 = json.load(json_obj2)
                 json_object2 = json.dumps(data2, indent=4)
-                with open("D:\Python Outputs\data.v.2.json", "w") as outfile2:
+                with open("D:\Python Outputs\API_State_Data.json", "w") as outfile2:
                     outfile2.write(json_object2)
 
-                df2.to_csv("D:\Python Outputs\ {}_API_state_current.csv".format(date_current))
+                df2.to_csv("D:\Python Outputs\ {}_API_State_Current.csv".format(date_current))
         print("apiData Function Executed Successfully\n")
     except:
         print("Error in apiData Function")
@@ -107,7 +107,7 @@ def usData(df1, date_current):
         print('Total negative cases in all the states on {} are :{} '.format(date_current, total_negative_us))
         total_tests_us = total_negative_us + total_positive_us
         print('Total tests in all the states on {} are :{} \n'.format(date_current, total_tests_us))
-        print('usData Function Executed Successfully')
+        print('usData Function Executed Successfully\n')
     except:
         print('Error in usData Function')
 
@@ -123,7 +123,7 @@ def stateViz(df2, date_current):
         plt.pie(x, labels=y, autopct='%1.1f%%')
         # plt.legend(y, loc="right")
         plt.title("Top 10 states that are most affected by COVID-19 are ")
-        plt.savefig('D:\Python Outputs\{}_Top_Most_Affected.pdf'.format(date_current))
+        plt.savefig('D:\Python Outputs\{}_Top_Most_Affected_State.pdf'.format(date_current))
         # plt.show()
 
         x3 = df2.nsmallest(5, ['positive'])
@@ -132,7 +132,7 @@ def stateViz(df2, date_current):
         plt.pie(a, labels=b, autopct='%1.1f%%')
         # plt.legend(b, loc="right")
         plt.title("Top 10 states that are least affected by COVID-19 are ")
-        plt.savefig('D:\Python Outputs\{}_Top_Least_Affected.pdf'.format(date_current))
+        plt.savefig('D:\Python Outputs\{}_Top_Least_Affected_State.pdf'.format(date_current))
         # plt.show()
 
         font = {'size': 65}
@@ -140,17 +140,17 @@ def stateViz(df2, date_current):
         plt.rcParams["figure.figsize"] = 60, 40
         df2.plot(kind='bar', x='state', y='positive', color='blue')
         plt.title("State wise positive cases on {}".format(date_current))
-        plt.savefig('D:\Python Outputs\{}_Positive.pdf'.format(date_current))
+        plt.savefig('D:\Python Outputs\{}_Positive_State.pdf'.format(date_current))
         # plt.show()
 
         df2.plot(kind='bar', x='state', y='negative', color='red')
         plt.title("State wise negative cases on {}".format(date_current))
-        plt.savefig('D:\Python Outputs\{}_Negative.pdf'.format(date_current))
+        plt.savefig('D:\Python Outputs\{}_Negative_State.pdf'.format(date_current))
         # plt.show()
 
         df2.plot(kind='bar', x='state', y='death', color='black')
         plt.title("State wise deaths cases on {}".format(date_current))
-        plt.savefig('D:\Python Outputs\{}_Deaths.pdf'.format(date_current))
+        plt.savefig('D:\Python Outputs\{}_Deaths_State.pdf'.format(date_current))
         # plt.show()
         print('stateViz Function Executed Successfully\n')
 
@@ -163,7 +163,7 @@ def usViz(df1,date_current):
     This function takes df1 i.e. the currrent US data as input along with current date and generates PDF files with related visualizations
     '''
     try:
-        pass
+        print('usViz Function Executed Successfully\n')
     except:
         print('Error in usViz Function')
 
