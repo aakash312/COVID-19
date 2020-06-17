@@ -26,23 +26,23 @@ class covid19:
         try:
             for val1, val2 in self.api_urls.items():
                 if val1 == 'key1':
-                    print('The json file generated will have the data from this URL: {}'.format(val2))
+                    # print('The json file generated will have the data from this URL: {}'.format(val2))
                     json_obj1 = urlopen(val2)
                     data1 = json.load(json_obj1)
                     json_object1 = json.dumps(data1, indent=4)
                     with open("D:\Python Outputs\API_US_Data.json",'w') as outfile1:
                         outfile1.write(json_object1)
 
-                    # df1.to_csv("D:\Python Outputs\ {}_API_US_Daily.csv".format(date_current))
+                    self.df1.to_csv("D:\Python Outputs\ {}_API_US_Daily.csv".format(covid19.date_current))
                 else:
-                    print('The json file generated will have the data from this URL: {}\n'.format(val2))
+                    # print('The json file generated will have the data from this URL: {}\n'.format(val2))
                     json_obj2 = urlopen(val2)
                     data2 = json.load(json_obj2)
                     json_object2 = json.dumps(data2, indent=4)
                     with open("D:\Python Outputs\API_State_Data.json", "w") as outfile2:
                         outfile2.write(json_object2)
 
-                    # df2.to_csv("D:\Python Outputs\ {}_API_State_Current.csv".format(date_current))
+                    self.df2.to_csv("D:\Python Outputs\ {}_API_State_Current.csv".format(covid19.date_current))
             print("apiData Function Executed Successfully\n")
         except:
             print("Error in apiData Function")
@@ -54,10 +54,10 @@ class covid19:
         '''
         try:
             print('The information about the daily US cases dataset is as follows:')
-            print(self.df1.info())
+            # print(self.df1.info())
             print(self.df1.head())
             print('The information about the daily state cases dataset is as follows:')
-            print(self.df2.info())
+            # print(self.df2.info())
             print(self.df2.head())
             print('dataExploration Function Executed Successfully')
         except:
@@ -154,26 +154,26 @@ class covid19:
 
         except:
             print('Error in stateViz Function')
-    #
-    #
-    # def usViz(df1,date_current):
-    #     '''
-    #     This function takes df1 i.e. the currrent US data as input along with current date and generates PDF files with related visualizations
-    #     '''
-    #     try:
-    #         print('usViz Function Executed Successfully\n')
-    #     except:
-    #         print('Error in usViz Function')
+
+    def usViz(self):
+        '''
+        This function takes df1 i.e. the currrent US data as input along with current date and generates PDF files with related visualizations
+        '''
+        try:
+            print('usViz Function Executed Successfully\n')
+        except:
+            print('Error in usViz Function')
 
 
 if __name__ == "__main__":
-    url= covid19( df1 = pd.read_json("D:\Python Outputs\API_US_Data.json"),
+    __covidViz__= covid19( df1 = pd.read_json("D:\Python Outputs\API_US_Data.json"),
                   df2 = pd.read_json("D:\Python Outputs\API_State_Data.json"),
                   api_urls = {'key1': 'https://covidtracking.com/api/v1/us/daily.json',
                               'key2': 'https://covidtracking.com/api/v1/states/current.json'})
 
-    url.apiData()
-    url.dataExploration()
-    url.stateData()
-    url.usData()
-    url.stateViz()
+    __covidViz__.apiData()
+    __covidViz__.dataExploration()
+    __covidViz__.stateData()
+    __covidViz__.usData()
+    __covidViz__.stateViz()
+    __covidViz__.usViz()
