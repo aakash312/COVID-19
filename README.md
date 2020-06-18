@@ -8,7 +8,8 @@ https://covidtracking.com/api/v1/states/current.json
 Libraries Used: urllib, pandas, matplotlib, json and datetime
 
 Current Observation of output:
-The top 5 most affected states are: NY, NJ , CA, IL, MA
+
+-The top 5 most affected states are: NY, NJ , CA, IL, MA
 
 -The top 5 least affected states are:
 
