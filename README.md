@@ -11,7 +11,7 @@ Current Observation of output:
 
 -The top 5 most affected states are: NY, NJ , CA, IL, MA
 
--The top 5 least affected states are:
+-The top 5 least affected states are: AK, HI, MT, VT
 
 -The number of patients admitted into hospitals is increasing 
 
